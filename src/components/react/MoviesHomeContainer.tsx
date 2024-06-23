@@ -13,6 +13,7 @@ export default function MoviesHomeContainer({
 
   useEffect(() => {
     const fetchMovies = async () => {
+      console.log(import.meta.env.PUBLIC_TMDB_ACCESS_TOKEN);
       try {
         const response = await fetch(
           `https://api.themoviedb.org/3/movie/${listType}?language=en-US&page=1`,
@@ -21,7 +22,7 @@ export default function MoviesHomeContainer({
             headers: {
               accept: 'application/json',
               Authorization: `Bearer ${
-                import.meta.env.ASTRO_TMDB_ACCESS_TOKEN
+                import.meta.env.PUBLIC_TMDB_ACCESS_TOKEN
               }`,
             },
           },
@@ -40,7 +41,11 @@ export default function MoviesHomeContainer({
     <section>
       <div className='grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 items-stretch gap-2'>
         {moviesData?.results?.map((movie: Movie) => {
-          return <MovieCard movie={movie} />;
+          return (
+            <div key={movie.id}>
+              <MovieCard movie={movie} />
+            </div>
+          );
         })}
       </div>
     </section>
