@@ -7,7 +7,7 @@ export default function HomeContainer() {
 
   return (
     <section>
-      <div className='flex flex-row gap-5 justify-center items-center my-5 max-w-screen-lg mx-auto'>
+      <div className='flex flex-row gap-5 justify-center items-center my-5'>
         <Button
           handleClick={() => setSelected('popular')}
           selected={selected === 'popular'}

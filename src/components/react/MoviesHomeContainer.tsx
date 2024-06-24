@@ -38,8 +38,9 @@ export default function MoviesHomeContainer({
   }, []);
 
   return (
-    <section className='max-w-screen-xl mx-auto'>
-      <div className='grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-5 items-stretch gap-2 mx-auto w-full'>
+    <section className='mx-auto'>
+      <div className='flex flex-wrap gap-2 items-stretch justify-center m-0'>
+        {/* <div className='grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-5 items-stretch gap-2 mx-auto w-full'> */}
         {moviesData?.results?.map((movie: Movie) => {
           return (
             <div key={movie.id}>
