@@ -1,53 +1,95 @@
 import { useEffect, useState } from 'react';
 import type { MoviesResult, Movie } from '../../types';
 import MovieCard from './MovieCard';
+import Loading from './Loading';
 
 interface MoviesHomeContainerProps {
   listType: string;
+  searchQuery?: string;
 }
 
 export default function MoviesHomeContainer({
   listType = 'popular',
+  searchQuery,
 }: MoviesHomeContainerProps) {
   const [moviesData, setMoviesData] = useState<MoviesResult | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
-      console.log(import.meta.env.PUBLIC_TMDB_ACCESS_TOKEN);
       try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${listType}?language=en-US&page=1`,
-          {
-            method: 'GET',
-            headers: {
-              accept: 'application/json',
-              Authorization: `Bearer ${
-                import.meta.env.PUBLIC_TMDB_ACCESS_TOKEN
-              }`,
+        setIsLoading(true);
+        if (listType === 'popular' || listType === 'top_rated') {
+          const response = await fetch(
+            `https://api.themoviedb.org/3/movie/${listType}?language=en-US&page=1`,
+            {
+              method: 'GET',
+              headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${
+                  import.meta.env.PUBLIC_TMDB_ACCESS_TOKEN
+                }`,
+              },
             },
-          },
-        );
-        const res = await response.json();
-        console.log(res);
-        setMoviesData(res);
+          );
+          const res = await response.json();
+          console.log(res);
+          setMoviesData(res);
+          setIsLoading(false);
+        } else if (listType === 'search') {
+          console.log(
+            `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=1`,
+          );
+          const response = await fetch(
+            `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=1`,
+            {
+              method: 'GET',
+              headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${
+                  import.meta.env.PUBLIC_TMDB_ACCESS_TOKEN
+                }`,
+              },
+            },
+          );
+          const res = await response.json();
+          console.log(res);
+          setMoviesData(res);
+          setIsLoading(false);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     fetchMovies();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <section className='mx-auto'>
       <div className='flex flex-wrap gap-2 items-stretch justify-center m-0'>
-        {/* <div className='grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-5 items-stretch gap-2 mx-auto w-full'> */}
-        {moviesData?.results?.map((movie: Movie) => {
-          return (
-            <div key={movie.id}>
-              <MovieCard movie={movie} />
-            </div>
-          );
-        })}
+        {isLoading ? (
+          <div className='my-44'>
+            <Loading />
+          </div>
+        ) : (
+          <>
+            {moviesData && moviesData?.results?.length > 0 ? (
+              <>
+                {moviesData?.results?.map((movie: Movie) => {
+                  return (
+                    <div key={movie.id}>
+                      <MovieCard movie={movie} />
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div className='my-44'>
+                <p>No movies found </p>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </section>
   );
