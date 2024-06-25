@@ -16,8 +16,8 @@ const response = await fetch(
     },
   },
 );
+
 const movie: MovieDetail = await response.json();
-console.log(movie);
 ---
 
 <Layout title='Home - Bull Films'>
@@ -38,6 +38,12 @@ console.log(movie);
         <div
           class='flex flex-col gap-4 w-auto md:max-w-screen-md items-center md:items-start'
         >
+          <p class='text-justify text-sm'>
+            {movie.release_date.toString().split('-').at(0)} - {movie.runtime} min.
+          </p>
+          <p class='border-b border-slate-400 pb-3 text-justify'>
+            {movie.overview}
+          </p>
           <div class='flex flex-row gap-1 items-center align-middle'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -54,12 +60,7 @@ console.log(movie);
               {movie.vote_average.toFixed(1)} / 10
             </p>
           </div>
-          <p class='text-justify text-sm'>
-            {movie.release_date.toString().split('-').at(0)} - {movie.runtime} min.
-          </p>
-          <p class='border-b border-slate-400 pb-3 text-justify'>
-            {movie.overview}
-          </p>
+
           <div
             class='flex flex-wrap gap-1 border-b border-slate-400 pb-3 min-w-full justify-center md:justify-start'
           >

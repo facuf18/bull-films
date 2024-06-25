@@ -33,7 +33,6 @@ export default function MoviesHomeContainer({
             },
           );
           const res = await response.json();
-          console.log(res);
           setMoviesData(res);
           setIsLoading(false);
         } else if (listType === 'search') {
@@ -53,7 +52,6 @@ export default function MoviesHomeContainer({
             },
           );
           const res = await response.json();
-          console.log(res);
           setMoviesData(res);
           setIsLoading(false);
         }
