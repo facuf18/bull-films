@@ -6,11 +6,13 @@ import Loading from './Loading';
 interface MoviesHomeContainerProps {
   listType: string;
   searchQuery?: string;
+  refreshSearch?: number;
 }
 
 export default function MoviesHomeContainer({
   listType = 'popular',
   searchQuery,
+  refreshSearch,
 }: MoviesHomeContainerProps) {
   const [moviesData, setMoviesData] = useState<MoviesResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -60,7 +62,7 @@ export default function MoviesHomeContainer({
       }
     };
     fetchMovies();
-  }, [searchQuery]);
+  }, [refreshSearch]);
 
   return (
     <section className='mx-auto'>

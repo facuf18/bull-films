@@ -6,10 +6,14 @@ import Loading from './Loading';
 export default function HomeContainer() {
   const [selected, setSelected] = useState('popular');
   const [search, setSearch] = useState('');
+  const [refreshSearch, setRefreshSearch] = useState<number>(0);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (search.length > 0) setSelected('search');
+    if (search.length > 0) {
+      setSelected('search');
+      setRefreshSearch(refreshSearch + 1);
+    }
   };
 
   return (
@@ -69,7 +73,11 @@ export default function HomeContainer() {
       {selected === 'popular' && <MoviesHomeContainer listType='popular' />}
       {selected === 'top_rated' && <MoviesHomeContainer listType='top_rated' />}
       {selected === 'search' && (
-        <MoviesHomeContainer listType='search' searchQuery={search} />
+        <MoviesHomeContainer
+          listType='search'
+          searchQuery={search}
+          refreshSearch={refreshSearch}
+        />
       )}
     </section>
   );
