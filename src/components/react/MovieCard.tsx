@@ -1,15 +1,9 @@
 import { Suspense, useEffect, useState } from 'react';
-import type { Movie } from '../../types';
+import type { Movie, MovieStorage } from '../../types';
 
 interface MovieCardProps {
-  movie: Movie;
+  movie: Movie | MovieStorage;
 }
-
-type MovieStorage = {
-  id: number;
-  original_title: string;
-  poster_path: string;
-};
 
 export default function MovieCard({ movie }: MovieCardProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -109,7 +103,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`col-span-1 w-auto rounded-sm flex flex-col items-center gap-2 ${
+      className={`col-span-1 w-auto rounded-sm flex flex-col items-center ${
         isImageLoaded ? '' : 'hidden'
       }`}
     >
@@ -132,9 +126,9 @@ export default function MovieCard({ movie }: MovieCardProps) {
               >
                 <path d='M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z' />
                 <path
-                  fill-rule='evenodd'
+                  fillRule='evenodd'
                   d='M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z'
-                  clip-rule='evenodd'
+                  clipRule='evenodd'
                 />
               </svg>
             </button>
@@ -151,9 +145,9 @@ export default function MovieCard({ movie }: MovieCardProps) {
               >
                 <path d='M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z' />
                 <path
-                  fill-rule='evenodd'
+                  fillRule='evenodd'
                   d='M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z'
-                  clip-rule='evenodd'
+                  clipRule='evenodd'
                 />
               </svg>
             </button>
@@ -167,13 +161,13 @@ export default function MovieCard({ movie }: MovieCardProps) {
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
-                stroke-width='1.5'
+                strokeWidth='1.5'
                 stroke='currentColor'
                 className='size-6'
               >
                 <path
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
                   d='M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z'
                 />
               </svg>
@@ -187,13 +181,13 @@ export default function MovieCard({ movie }: MovieCardProps) {
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
-                stroke-width='1.5'
+                strokeWidth='1.5'
                 stroke='currentColor'
                 className='size-6'
               >
                 <path
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
                   d='M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z'
                 />
               </svg>
@@ -213,7 +207,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
         href={`/movie?id=${movie.id}`}
         className='text-sm leading-8 truncate max-w-40 hover:opacity-70 transition-all ease-in-out duration-300 cursor-pointer'
       >
-        {movie.title}
+        {movie.original_title}
       </a>
     </div>
   );

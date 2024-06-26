@@ -80,3 +80,9 @@ export interface SpokenLanguage {
   iso_639_1: string;
   name: string;
 }
+
+export interface MovieStorage {
+  id: number;
+  original_title: string;
+  poster_path: string;
+}
