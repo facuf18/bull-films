@@ -219,14 +219,15 @@ export default function MovieCard({ movie }: MovieCardProps) {
                 <p className='font-medium'>{movie.vote_average.toFixed(1)}</p>
               </div>
             </div>
-
-            <img
-              className={`w-auto h-80 rounded border-2 border-transparent ${
-                watched ? 'hover:border-green-600' : 'hover:border-slate-100'
-              } transition-all ease-in-out duration-300 cursor-pointer`}
-              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-              onLoad={() => setIsImageLoaded(true)}
-            />
+            <a href={`/movie?id=${movie.id}`}>
+              <img
+                className={`w-auto h-80 rounded border-2 border-transparent ${
+                  watched ? 'hover:border-green-600' : 'hover:border-slate-100'
+                } transition-all ease-in-out duration-300 cursor-pointer`}
+                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                onLoad={() => setIsImageLoaded(true)}
+              />
+            </a>
           </div>
           <a
             href={`/movie?id=${movie.id}`}
