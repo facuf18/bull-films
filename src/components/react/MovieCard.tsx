@@ -73,7 +73,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
       id: movie.id,
       original_title: movie.original_title,
       poster_path: movie.poster_path,
-      movie: movie.vote_average,
+      vote_average: movie.vote_average,
     };
     const watched = window.localStorage.getItem('watched');
     if (watched) {
