@@ -4,12 +4,19 @@ import MovieCard from './MovieCard';
 
 export default function WatchedContainer() {
   const [movies, setMovies] = useState<MovieStorage[] | null>(null);
+  const [showNoMovies, setShowNoMovies] = useState<boolean>(false);
 
   useEffect(() => {
     const watched = window.localStorage.getItem('watched');
     if (watched) {
       const array = JSON.parse(watched);
-      setMovies(array);
+      if (array.length > 0) {
+        setMovies(array);
+      } else {
+        setShowNoMovies(true);
+      }
+    } else {
+      setShowNoMovies(true);
     }
   }, []);
 
@@ -28,7 +35,7 @@ export default function WatchedContainer() {
             })
           ) : (
             <div className='my-44'>
-              <p>No movies found </p>
+              {showNoMovies && <p>No movies found </p>}
             </div>
           )}
         </div>

@@ -16,6 +16,7 @@ export default function MoviesHomeContainer({
 }: MoviesHomeContainerProps) {
   const [moviesData, setMoviesData] = useState<MoviesResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showNoMovies, setShowNoMovies] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -35,6 +36,7 @@ export default function MoviesHomeContainer({
             },
           );
           const res = await response.json();
+          if (res?.results?.length < 1) setShowNoMovies(true);
           setMoviesData(res);
           setIsLoading(false);
         } else if (listType === 'search') {
@@ -51,6 +53,7 @@ export default function MoviesHomeContainer({
             },
           );
           const res = await response.json();
+          if (res?.results?.length < 1) setShowNoMovies(true);
           setMoviesData(res);
           setIsLoading(false);
         }
@@ -82,7 +85,7 @@ export default function MoviesHomeContainer({
               </>
             ) : (
               <div className='my-44'>
-                <p>No movies found </p>
+                {showNoMovies && <p>No movies found </p>}
               </div>
             )}
           </>
