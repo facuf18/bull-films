@@ -15,7 +15,7 @@ export default function Button({
     <button
       onClick={handleClick}
       className={`border border-slate-100 px-5 py-2 rounded hover:opacity-70 ${
-        selected && 'underline'
+        selected && 'opacity-60'
       } transition-all ease-in-out duration-300`}
     >
       {children}
