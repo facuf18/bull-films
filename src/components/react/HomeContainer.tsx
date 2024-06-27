@@ -1,7 +1,6 @@
 import React, { Suspense, useState } from 'react';
 import Button from '../../ui/Button';
 import MoviesHomeContainer from './MoviesHomeContainer';
-import Loading from './Loading';
 
 export default function HomeContainer() {
   const [selected, setSelected] = useState('popular');
