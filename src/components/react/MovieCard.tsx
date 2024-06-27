@@ -12,13 +12,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
   const [isOnWatchlist, setIsOnWatchlist] = useState<boolean>(false);
   const [watched, setWatched] = useState<boolean>(false);
   const [add, setAdd] = useState<number>(0);
-  const [borderColor, setBorderColor] = useState('slate-100');
-
-  useEffect(() => {
-    if (watched) setBorderColor('green-600');
-    else if (isOnWatchlist) setBorderColor('orange-400');
-    else setBorderColor('slate-100');
-  }, [watched, isOnWatchlist]);
 
   useEffect(() => {
     const watchlist = window.localStorage.getItem('watchlist');
