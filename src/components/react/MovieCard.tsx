@@ -15,6 +15,12 @@ export default function MovieCard({ movie }: MovieCardProps) {
   const [borderColor, setBorderColor] = useState('slate-100');
 
   useEffect(() => {
+    if (watched) setBorderColor('green-600');
+    else if (isOnWatchlist) setBorderColor('orange-400');
+    else setBorderColor('slate-100');
+  }, [watched, isOnWatchlist]);
+
+  useEffect(() => {
     const watchlist = window.localStorage.getItem('watchlist');
     if (watchlist) {
       const isOn = JSON.parse(watchlist)?.some((m: Movie) => m.id === movie.id);
@@ -57,7 +63,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
       setAdd(add + 1);
     }
     if (watched) removeFromWatched();
-    setBorderColor('orange-400');
   };
 
   const removeFromWatchlist = () => {
@@ -69,7 +74,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
       window.localStorage.setItem('watchlist', string);
       setAdd(add + 1);
     }
-    setBorderColor('slate-100');
   };
 
   const addToWatched = () => {
@@ -94,7 +98,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
       setAdd(add + 1);
     }
     if (isOnWatchlist) removeFromWatchlist();
-    setBorderColor('green-600');
   };
 
   const removeFromWatched = () => {
@@ -106,7 +109,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
       window.localStorage.setItem('watched', string);
       setAdd(add + 1);
     }
-    setBorderColor('slate-100');
   };
 
   return (
@@ -227,7 +229,11 @@ export default function MovieCard({ movie }: MovieCardProps) {
             </div>
             <a href={`/movie?id=${movie.id}`}>
               <img
-                className={`w-auto h-80 rounded border-2 border-transparent ${`hover:border-${borderColor}`} transition-all ease-in-out duration-300 cursor-pointer`}
+                className={`w-auto h-80 rounded border-2 border-transparent ${
+                  !isOnWatchlist && !watched && 'hover:border-slate-100'
+                } ${isOnWatchlist && 'hover:border-orange-400'} ${
+                  watched && 'hover:border-green-400'
+                } transition-all ease-in-out duration-300 cursor-pointer`}
                 src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                 onLoad={() => setIsImageLoaded(true)}
               />
