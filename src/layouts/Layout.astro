@@ -1,6 +1,7 @@
 ---
 import '@fontsource/nunito';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -25,5 +26,6 @@ const { title } = Astro.props;
   <body class='bg-slate-800 text-slate-100'>
     <Header />
     <slot />
+    <Footer />
   </body>
 </html>

@@ -40,7 +40,7 @@ export default function HomeContainer() {
           </Button>
         </div>
         <form
-          className='inline-flex gap-1 border border-slate-100 rounded px-2 py-1.5'
+          className='inline-flex gap-1 border border-slate-600 rounded px-2 py-1.5'
           role='group'
         >
           <input
@@ -58,7 +58,7 @@ export default function HomeContainer() {
               viewBox='0 0 24 24'
               strokeWidth='1.5'
               stroke='currentColor'
-              className='size-7 text-slate-100 hover:opacity-70'
+              className='size-7 text-slate-100 hover:opacity-70 transition-all ease-in-out duration-300'
             >
               <path
                 strokeLinecap='round'

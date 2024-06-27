@@ -12,6 +12,13 @@ export default function MovieCard({ movie }: MovieCardProps) {
   const [isOnWatchlist, setIsOnWatchlist] = useState<boolean>(false);
   const [watched, setWatched] = useState<boolean>(false);
   const [add, setAdd] = useState<number>(0);
+  const [borderColor, setBorderColor] = useState('slate-100');
+
+  useEffect(() => {
+    if (watched) setBorderColor('green-600');
+    else if (isOnWatchlist) setBorderColor('orange-400');
+    else setBorderColor('slate-100');
+  }, [watched, isOnWatchlist]);
 
   useEffect(() => {
     const watchlist = window.localStorage.getItem('watchlist');
@@ -55,6 +62,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
       window.localStorage.setItem('watchlist', string);
       setAdd(add + 1);
     }
+    if (watched) removeFromWatched();
   };
 
   const removeFromWatchlist = () => {
@@ -221,8 +229,8 @@ export default function MovieCard({ movie }: MovieCardProps) {
             </div>
             <a href={`/movie?id=${movie.id}`}>
               <img
-                className={`w-auto h-80 rounded border-2 border-transparent ${
-                  watched ? 'hover:border-green-600' : 'hover:border-slate-100'
+                className={`w-auto h-80 rounded border-2 border-transparent ${`hover:border-${borderColor}`} ${
+                  isOnWatchlist && 'hover:bg-orange-400'
                 } transition-all ease-in-out duration-300 cursor-pointer`}
                 src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                 onLoad={() => setIsImageLoaded(true)}
