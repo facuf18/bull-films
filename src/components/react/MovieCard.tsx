@@ -227,9 +227,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
             </div>
             <a href={`/movie?id=${movie.id}`}>
               <img
-                className={`w-auto h-80 rounded border-2 border-transparent ${`hover:border-${borderColor}`} ${
-                  isOnWatchlist && 'hover:bg-orange-400'
-                } transition-all ease-in-out duration-300 cursor-pointer`}
+                className={`w-auto h-80 rounded border-2 border-transparent ${`hover:border-${borderColor}`} transition-all ease-in-out duration-300 cursor-pointer`}
                 src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                 onLoad={() => setIsImageLoaded(true)}
               />
